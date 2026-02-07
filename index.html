@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locked for You 🔒</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            margin: 0;
+            overflow: hidden;
+            transition: background 1.5s ease;
+        }
+
+        /* Lock Screen Styling */
+        #lock-screen {
+            z-index: 10;
+            transition: opacity 1s;
+        }
+        
+        input {
+            padding: 15px;
+            border-radius: 25px;
+            border: 2px solid #ff4d6d;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            outline: none;
+            text-align: center;
+            font-size: 1.2rem;
+            width: 250px;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px #ff4d6d;
+        }
+
+        /* The Secret Content */
+        #secret-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 2s;
+            z-index: 5;
+        }
+
+        .rose-icon {
+            font-size: 8rem;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 0, 80, 0.6));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 { margin-top: 20px; color: #fff0f3; }
+        p { color: #ffccd5; font-size: 1.2rem; }
+
+        /* Confetti Effect */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f2d74e;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="lock-screen">
+        <h2>Who is the most beautiful girl?</h2>
+        <input type="text" id="password" placeholder="Type answer..." onkeyup="checkPass()">
+        <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 15px;">(Try your name, nickname, or 'me')</p>
+    </div>
+
+    <div id="secret-content">
+        <div class="rose-icon">🌹</div>
+        <h1>Happy Rose Day Janu !</h1>
+        <p>Correct! You are the only answer. ❤️</p>
+         <p1>"In a garden filled with a million flowers, my eyes would still search for you. You are my one and only rose."</p1>
+    </div>
+
+    <script>
+        function checkPass() {
+            var input = document.getElementById("password").value.toLowerCase().trim();
+            
+            // --- EDIT THIS LIST ---
+            // Add all the names you want to accept here (keep them lowercase!)
+            var validNames = ["Lisu", "janu", "kallu", "Pallavi", "Pallu","Anshu","Anshika"]; 
+            // ----------------------
+
+            if (validNames.includes(input)) {
+                unlockSurprise();
+            }
+        }
+
+        function unlockSurprise() {
+            // Hide Lock Screen
+            var lockScreen = document.getElementById("lock-screen");
+            lockScreen.style.opacity = "0";
+            setTimeout(() => { lockScreen.style.display = "none"; }, 1000);
+
+            // Show Secret
+            var secret = document.getElementById("secret-content");
+            secret.style.display = "block";
+            
+            // Small delay to allow display:block to apply before fading in
+            setTimeout(() => { 
+                secret.style.opacity = "1"; 
+                document.body.style.backgroundColor = "#c9184a"; // Change BG to romantic red
+                startConfetti();
+            }, 100);
+        }
+
+        function startConfetti() {
+            for(let i=0; i<50; i++) {
+                let confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                confetti.style.backgroundColor = ['#ff0', '#f00', '#0f0', '#00f'][Math.floor(Math.random()*4)];
+                document.body.appendChild(confetti);
+            }
+        }
+    </script>
+
+</body>
+</html>
